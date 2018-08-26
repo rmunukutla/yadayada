@@ -234,13 +234,13 @@
               </div>
             </div>
             <form id="wf-form-Credit-Card-Form-Complete" name="wf-form-Credit-Card-Form-Complete" data-name="Credit Card Form Complete"><label for="name" class="form-label">Nickname</label>
-              <p>My Alaska Air Visa Card</p>
+              <p id="credit-card-nickname-filled">My Alaska Air Visa Card</p>
               <div class="data-descriptor">
                 <div>At this point, your...</div>
               </div><label for="balance" class="form-label">Balance</label>
-              <p>$5,143.47</p><label for="min-payment" class="form-label">Minimum Payment</label>
-              <p>$240.23</p><label for="apr" class="form-label">APR</label>
-              <p>29.99%</p><a href="#" data-w-id="3800a360-7186-d993-2d90-86c5e92bb062" class="hollow-button primary">Edit</a><a href="#" class="ghost">Remove</a></form>
+              <p id="credit-card-balance-filled">$5,143.47</p><label for="min-payment" class="form-label">Minimum Payment</label>
+              <p id="credit-card-minimum-payment-filled">$240.23</p><label for="apr" class="form-label">APR</label>
+              <p id="credit-card-apr-filled">29.99%</p><a href="#" data-w-id="3800a360-7186-d993-2d90-86c5e92bb062" class="hollow-button primary">Edit</a><a href="#" class="ghost">Remove</a></form>
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -516,6 +516,9 @@
             </div>
           </div>
         </div>
+        <div id="remove-confirmation-overlay" class="overlay" style="display:none">
+          <h4 class="overlay-header">Are you sure?</h4>
+          <p>You will lose all of the information that you have entered.</p><a href="#" class="hollow-button primary">Cancel</a><a href="#" class="button right w-button">I&#x27;m sure</a></div>
 
       </div>
     </div>
@@ -524,7 +527,7 @@
     <div class="w-container">
       <div class="w-row">
         <div class="w-col w-col-8"></div>
-        <div class="align-right w-col w-col-4"><a href="#" id="saveButton" class="button full-width">Save &amp; Continue</a></div>
+        <div class="align-right w-col w-col-4"><a href="#" id="saveButton" class="button full-width">Save &amp; Continue</a><a href="#" class="button full-width disabled" style="display:none">Save &amp; Continue</a></div>
       </div>
     </div>
   </div>
