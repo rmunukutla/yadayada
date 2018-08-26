@@ -4,7 +4,7 @@ Stuff about yadayada
 # Issues
 - Add in the symbols $ and % in input (and general formatting) when user is not editing that input box
 
-- Add overlay to confirm removal, removal button instead of add button
+- Add overlay to confirm removal, No add button, "Remove" instead of "Change"
 
 - Remove term for payday loan and put "Original Loan Date" with date input and date picker
 
