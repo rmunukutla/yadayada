@@ -2,7 +2,7 @@
 Stuff about yadayada
 
 # Issues
-- Add in the symbols $ and % in input and output boxes (and general formatting)
+- Add in the symbols $ and % in input (and general formatting) when user is not editing that input box
 
 - Add overlay to confirm removal, removal button instead of add button
 
