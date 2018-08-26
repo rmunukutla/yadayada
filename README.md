@@ -6,9 +6,11 @@ Stuff about yadayada
 
 - Add overlay to confirm removal, removal button instead of add button
 
-- Remove term for payday loan and put original date with data input and date picker
+- Remove term for payday loan and put "Original Loan Date" with date input and date picker
 
-- Adding cards, once card is completed, check if its valid and complete it but keep it still in input, and then allow the user to add another card as long as all other cards are completed.
+- Adding cards, once card is completed, check if its valid and complete it but keep it still in input, and then allow the user to add another card as long as all other cards are completed. 
+
+- Add the dropdown when all the other input boxes are complete that says "Add Another Source"
 
 - No edit button when in input mode.
 
