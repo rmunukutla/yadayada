@@ -96,7 +96,6 @@
             $copy.show();
           });
           output.find('.ghost').click(function(){
-            //TODO:Add overlay to confirm
             output.remove();
             showSource();
             $copy.remove();
@@ -120,7 +119,6 @@
             }
         });
       });
-      //TODO: Issues with duplicating when editing multiple
       $("#dropdown-credit-card").click(function(){ cloneAndAddFunctionality("#debt-credit-card-input-box") });
       $("#dropdown-student-loan").click(function(){ cloneAndAddFunctionality("#debt-student-loan-input-box") });
       $("#dropdown-payday-loan").click(function(){ cloneAndAddFunctionality("#debt-payday-loan-input-box") });
