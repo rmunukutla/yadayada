@@ -15,3 +15,6 @@ Stuff about yadayada
 - No edit button when in input mode.
 
 - NEXT PAGE: Change the edit function, so that it updates all the output cards to input cards (e.g. Paysa Profile)
+
+# Completed
+
