@@ -6,7 +6,7 @@ Stuff about yadayada
 
 - Darken rest of screen when removal overlay is open
 
-- Make input cards take up less space
+- Make input cards take up less space (flex-wrap, div the label and the input)
 
 # Future Work
 - NEXT PAGE: Change the edit function, so that it updates all the output cards to input cards (e.g. Paysa Profile)
