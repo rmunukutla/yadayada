@@ -8,6 +8,8 @@ Stuff about yadayada
 
 - Make input cards take up less space (flex-wrap, div the label and the input)
 
+- No save and continue when there is no input boxes
+
 # Future Work
 - NEXT PAGE: Change the edit function, so that it updates all the output cards to input cards (e.g. Paysa Profile)
 
