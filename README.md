@@ -6,9 +6,10 @@ Stuff about yadayada
 
 - Darken rest of screen when removal overlay is open
 
-- NEXT PAGE: Change the edit function, so that it updates all the output cards to input cards (e.g. Paysa Profile)
-
 - Make input cards take up less space
+
+# Future Work
+- NEXT PAGE: Change the edit function, so that it updates all the output cards to input cards (e.g. Paysa Profile)
 
 # Completed
 
