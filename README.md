@@ -8,6 +8,8 @@ Stuff about yadayada
 
 - NEXT PAGE: Change the edit function, so that it updates all the output cards to input cards (e.g. Paysa Profile)
 
+- Make input cards take up less space
+
 # Completed
 
 - Have a link to click that pulls up the dropdown box, when that link is clicked try to submit all input forms, if they submit correctly, then the dropdown appears and the user can add another card.
