@@ -2,9 +2,9 @@
 Stuff about yadayada
 
 # Issues
-- Add in the symbols $ and % in input (and general formatting) when user is not editing that input box
+- Add in the symbols $ and % in input (and general formatting) when user is not editing that input box, type right to left
 
-- Darken rest of screen when removal overlay is open
+- Darken rest of screen when removal overlay is open, make removal box in middle of screen, stop dropdown box from being z-indexed over it
 
 - Make input cards take up less space (flex-wrap, div the label and the input)
 
