@@ -8,9 +8,7 @@ Stuff about yadayada
 
 - Remove term for payday loan and put "Original Loan Date" with date input and date picker
 
-- Adding cards, once card is completed, check if its valid and complete it but keep it still in input, and then allow the user to add another card as long as all other cards are completed. 
-
-- Add the dropdown when all the other input boxes are complete that says "Add Another Source"
+- Have a link to click that pulls up the dropdown box, when that link is clicked try to submit all inpuit forms, if they submit correctly, then the dropdown appears and the user can add another card.
 
 - No edit button when in input mode.
 
