@@ -19,105 +19,64 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
     $(document).ready(function(){
-      $userVar = 1;
-      var user = localStorage.getItem('userID');
-      var userData = null;
-      if(user) {
-        //userData = localStorage.getItem('userData');
-        //console.log( JSON.parse(localStorage.getItem('userData1')));
-        //console.log(localStorage.getItem('userDataAmount'));
-        //$userVar = localStorage.getItem('userDataAmount')+1;
-      } else {
-        localStorage.setItem('userID', String(Date.now())+Math.floor(Math.random()*10000));
-        console.log(localStorage.getItem('userID'));
-      }
-      var showSource = function() {
-        var hasOutput = $("[id$=output-box]").length;
-        if(hasOutput == 5) {
-          $("#source-another").hide();
-          $("#source-first").show();
-        } else {
-          $("#source-first").hide();
-          $("#source-another").show();
-        }
-      }
+      var userVar = 1;
+      var submitted = 0;
       var cloneAndAddFunctionality = function(inputBox) {
         $("#source-first").hide();
         $("#source-another").hide();
-        var $copy = $(inputBox).clone();
-        var $newID = "" + $userVar +  $copy.attr('id') + "-real" ;
-        $copy = $copy.attr("id",$newID);
-        $userVar++;
-        $copy.prependTo("#paste-area");
-        $copy.show();
-        $(".link2").click(function(){
-          showSource();
-          $($copy).remove();
-          $userVar--;
-          $("#debt-selector-box").show();
-        });
-        $("[id^=wf-form]").submit(function() {
-          /*var ID = $(this).attr('id');
-          var userDataToBeSent = "{";
-          $("#"+ ID + " :input").each(function(){
-            var input = $(this);
-            if(input.attr('type') != "submit") {
-              var valWrapper = input.val();
-              if(typeof input.val() == "string") {
-                valWrapper = "\"" + input.val() + "\"";
-              }
-              userDataToBeSent = userDataToBeSent + "\""+input.attr('id')+"\":"+valWrapper + ",";
-            }
-          });
-          userDataToBeSent = userDataToBeSent.substring(0, userDataToBeSent.length - 1);
-          userDataToBeSent = userDataToBeSent + "}";
-          localStorage.setItem('userData'+($userVar-1),userDataToBeSent);
-          localStorage.setItem('userDataAmount',($userVar-1));
-          console.log(userDataToBeSent);*/
-          var output = $(inputBox.substring(0,inputBox.length-9)+"output-box").clone();
-          var ID = $(this).attr('id');
-          var outputArray = [];
-          var index = 0;
-          $("#"+ ID + " :input").each(function(){
-            var input = $(this);
-            if(input.attr('type') != "submit") {
-              outputArray[index] = input.val();
-              index++;
-            }
-          });
-          output.find('p').each(function( index ) {
-            $(this).text(outputArray[index]);
-          });
-          output.find('.hollow-button').click(function(){
-            output.remove();
-            $("#source-another").hide();
-            $("#source-first").hide();
-            $("#debt-selector-box").hide();
-            $copy.show();
-          });
-          output.find('.ghost').click(function(){
-            output.remove();
-            showSource();
-            $copy.remove();
-            $userVar--;
-            $("#debt-selector-box").show();
-          });
-          output.prependTo("#paste-area");
-          output.show();
-          showSource();
-          $("#debt-selector-box").show();
-          $copy.hide();
-          return false; // return false to cancel form action
-        });
         $("#debt-selector-box").hide();
+        $("#source-clickable").show();
+        var copy = $(inputBox).clone();
+        var newID = "real-" + userVar + "-" + copy.attr('id');
+        copy = copy.attr("id",newID);
+        userVar++;
+        copy.appendTo("#paste-area");
+        copy.show();
+        $(".link2").click(function(){
+          if($("#remove-confirmation-overlay").is(":visible")) {
+            return false;
+          }
+          var current = $(this).parent().parent().parent().parent().parent();
+          $("#remove-confirmation-overlay").show();
+          $("#sureRemoval").click(function() {
+            $("#remove-confirmation-overlay").hide();
+            current.remove();
+            userVar--;
+            if($("[id$=input-box]").length == 5) {
+              $("#source-first").show();
+              $("#debt-selector-box").show();
+              $("#source-another").hide();
+              $("#source-clickable").hide();
+            }
+          });
+          $("#cancelRemoval").click(function() {
+            $("#remove-confirmation-overlay").hide();
+          });
+        });
+        copy.find("[id^=wf-form]").submit(function() {
+          submitted++;
+          return false;
+        });
       }
       $("#saveButton").click(function() {
-        $("[id$=input-box-real]").each(function(){
+        //TODO: Add functionality to go to next page.
+      });
+      $("#source-clickable").click(function() {
+          var count = 0;
+        $("[id$=input-box").each(function(){
             var input = $(this);
             if(input.is(":visible")) {
+              count++;
               input.find("input[type=submit]").click();
             }
         });
+        if(submitted == count) {
+          $("#debt-selector-box").show();
+          $("#source-another").show();
+          $("#source-clickable").hide();
+        }
+        submitted = 0;
+        count = 0;
       });
       $("#dropdown-credit-card").click(function(){ cloneAndAddFunctionality("#debt-credit-card-input-box") });
       $("#dropdown-student-loan").click(function(){ cloneAndAddFunctionality("#debt-student-loan-input-box") });
@@ -147,6 +106,8 @@
     <div class="container-top-24 w-container">
       <h2 class="section-heading">What do you need help paying off?</h2>
       <div>
+        <div id="paste-area"></div>
+        <h4 id="source-clickable" class="heading-3 left link" style="display: none">Click to add another debt source</h4>
         <h4 id="source-first" class="heading-3 left">Enter your first source</h4>
         <h4 id="source-another" style="display: none" class="heading-3 left">Enter another source</h4>
         <div id="debt-selector-box" class="div-block box">
@@ -178,14 +139,12 @@
             <div>We use this information to help you prioritize which debt you should pay and how much.</div>
           </div>
         </div>
-
-        <div id="paste-area"></div>
         <div id="debt-credit-card-input-box" data-w-id="2868bbbb-a940-b8ab-10e9-8bd8e9acd264" style="display:none" class="div-block box">
           <div id="credit-card-form" class="w-form">
             <div>
               <div class="row w-row">
                 <div class="debt-sources-type-elements w-clearfix w-col w-col-6">
-                  <h4 id="subsectionHeader-credit-card" class="heading">Credit Card</h4><a href="#" data-w-id="2868bbbb-a940-b8ab-10e9-8bd8e9acd28b" class="link2">Change</a></div>
+                  <h4 id="subsectionHeader-credit-card" class="heading">Credit Card</h4><a href="#" data-w-id="2868bbbb-a940-b8ab-10e9-8bd8e9acd28b" class="link2">Remove</a></div>
                 <div class="debt-sources-type-elements w-col w-col-6">
                   <div id="icon-credit-card" class="icon regular"></div>
                   <div id="icon-student-loan" class="icon solid disabled"></div>
@@ -206,7 +165,7 @@
               <input type="number" step="0.01" class="w-input" maxlength="256" name="credit-card-min-payment-2" data-name="Credit Card Min Payment 2" placeholder="e.g. $35.43" id="credit-card-min-payment-2" required="">
               <label for="credit-card-apr-3" class="form-label">APR</label>
               <input type="number" step="0.01" class="w-input" maxlength="256" name="credit-card-apr-2" data-name="Credit Card Apr 2" placeholder="e.g. 29.99%" id="credit-card-apr-2" required="">
-              <input type="submit" value="Add" data-wait="Please wait..." data-w-id="2868bbbb-a940-b8ab-10e9-8bd8e9acd2a8" class="button w-button"></form>
+              <input type="submit" value="Add" style="display: none" data-wait="Please wait..." data-w-id="2868bbbb-a940-b8ab-10e9-8bd8e9acd2a8" class="button w-button"></form>
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -252,7 +211,7 @@
             <div>
               <div id="select-type" class="row w-row">
                 <div class="debt-sources-type-elements w-clearfix w-col w-col-6">
-                  <h4 id="subsectionHeader-student-loan" class="heading">Student Loan</h4><a href="#" data-w-id="c5633638-eaa6-b16a-b819-0fd57d5d78b2" class="link2">Change</a></div>
+                  <h4 id="subsectionHeader-student-loan" class="heading">Student Loan</h4><a href="#" data-w-id="c5633638-eaa6-b16a-b819-0fd57d5d78b2" class="link2">Remove</a></div>
                 <div class="debt-sources-type-elements w-col w-col-6">
                   <div id="icon-credit-card" class="icon regular disabled"></div>
                   <div id="icon-student-loan" class="icon solid"></div>
@@ -273,7 +232,7 @@
               <input type="number" step="0.01" class="w-input" maxlength="256" name="Student-Loan-Interest-Rate-2" data-name="Student Loan Interest Rate 2" placeholder="e.g.  4.45%" id="Student-Loan-Interest-Rate-2" required="">
               <label for="Student-Loan-Remain-Term-2" class="form-label">Remaining Term</label>
               <select id="Student-Loan-Remain-Term-2" name="Student-Loan-Remain-Term-2" data-name="Student Loan Remain Term 2" class="w-select" required="">
-                <option value="">Select one...</option><option value="1 month">1 month</option><option value="2 months">2 months</option><option value="3 months">3 months</option><option value="4 months">4 months</option><option value="5 months">5 months</option><option value="6 months">6 months</option><option value="7 months">7 months</option><option value="8 months">8 months</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" data-wait="Please wait..." data-w-id="c5633638-eaa6-b16a-b819-0fd57d5d78cf" class="button w-button"></form>
+                <option value="">Select one...</option><option value="1 month">1 month</option><option value="2 months">2 months</option><option value="3 months">3 months</option><option value="4 months">4 months</option><option value="5 months">5 months</option><option value="6 months">6 months</option><option value="7 months">7 months</option><option value="8 months">8 months</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" style="display: none" data-wait="Please wait..." data-w-id="c5633638-eaa6-b16a-b819-0fd57d5d78cf" class="button w-button"></form>
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -319,7 +278,7 @@
             <div>
               <div id="select-type" class="row w-row">
                 <div class="debt-sources-type-elements w-clearfix w-col w-col-6">
-                  <h4 id="subsectionHeader-payday-loan" class="heading">Payday Loan</h4><a href="#" data-w-id="3ddb9951-50d1-3b02-708d-a904c024696b" class="link2">Change</a></div>
+                  <h4 id="subsectionHeader-payday-loan" class="heading">Payday Loan</h4><a href="#" data-w-id="3ddb9951-50d1-3b02-708d-a904c024696b" class="link2">Remove</a></div>
                 <div class="debt-sources-type-elements w-col w-col-6">
                   <div id="icon-credit-card" class="icon regular disabled"></div>
                   <div id="icon-student-loan" class="icon solid disabled"></div>
@@ -338,9 +297,9 @@
               <input type="number" step="0.01" class="w-input" maxlength="256" name="Original-Payday-Loan-Amount-2" data-name="Original Payday Loan Amount 2" placeholder="e.g. $1,000.00" id="Original-Payday-Loan-Amount-2" required="">
               <label for="Payday-Loan-Interest-Rate-2" class="form-label">Interest Rate</label>
               <input type="number" step="0.01" class="w-input" maxlength="256" name="Payday-Loan-Interest-Rate-2" data-name="Payday Loan Interest Rate 2" placeholder="e.g.  400%" id="Payday-Loan-Interest-Rate-2" required="">
-              <label for="Payday-Loan-Remain-Term-2" class="form-label">Remaining Term</label>
-              <select id="Payday-Loan-Remain-Term-2" name="Payday-Loan-Remain-Term-2" data-name="Payday Loan Remain Term 2" class="w-select" required="">
-                <option value="">Select one...</option><option value="1 week">1 week</option><option value="2 weeks">2 weeks</option><option value="3 weeks">3 weeks</option><option value="4 weeks">4 weeks</option><option value="5 weeks">5 weeks</option><option value="6 weeks">6 weeks</option><option value="7 weeks">7 weeks</option><option value="8 weeks">8 weeks</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" data-wait="Please wait..." data-w-id="3ddb9951-50d1-3b02-708d-a904c0246988" class="button w-button"></form>
+              <label for="Payday-Loan-Remain-Term-2" class="form-label">Original Loan Date</label>
+              <input type="date" id="Payday-Loan-Remain-Term-2" name="Payday-Loan-Remain-Term-2" data-name="Payday Loan Remain Term 2" class="w-select" required="">
+              <input type="submit" value="Add" style="display: none" data-wait="Please wait..." data-w-id="3ddb9951-50d1-3b02-708d-a904c0246988" class="button w-button"></form>
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -386,7 +345,7 @@
             <div>
               <div id="select-type" class="row w-row">
                 <div class="debt-sources-type-elements w-clearfix w-col w-col-6">
-                  <h4 id="subsectionHeader-loan" class="heading">Loan</h4><a href="#" data-w-id="6061c2fa-9f89-d152-9cd0-270f3c2a2fe5" class="link2">Change</a></div>
+                  <h4 id="subsectionHeader-loan" class="heading">Loan</h4><a href="#" data-w-id="6061c2fa-9f89-d152-9cd0-270f3c2a2fe5" class="link2">Remove</a></div>
                 <div class="debt-sources-type-elements w-col w-col-6">
                   <div id="icon-credit-card" class="icon regular disabled"></div>
                   <div id="icon-student-loan" class="icon solid disabled"></div>
@@ -406,7 +365,7 @@
               <label for="Loan-Interest-Rate-2" class="form-label">Interest Rate</label>
               <input type="number" step="0.01" class="w-input" maxlength="256" name="Loan-Interest-Rate-2" data-name="Loan Interest Rate 2" placeholder="e.g.  29.99%" id="Loan-Interest-Rate-2" required="">
               <label for="Loan-Remain-Term-2" class="form-label">Remaining Term</label><select id="Loan-Remain-Term-2" name="Loan-Remain-Term-2" data-name="Loan Remain Term 2" class="w-select" required="">
-                <option value="">Select one...</option><option value="1 month">1 month</option><option value="2 months">2 months</option><option value="3 months">3 months</option><option value="4 months">4 months</option><option value="5 months">5 months</option><option value="6 months">6 months</option><option value="7 months">7 months</option><option value="8 months">8 months</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" data-wait="Please wait..." data-w-id="6061c2fa-9f89-d152-9cd0-270f3c2a3002" class="button w-button"></form>
+                <option value="">Select one...</option><option value="1 month">1 month</option><option value="2 months">2 months</option><option value="3 months">3 months</option><option value="4 months">4 months</option><option value="5 months">5 months</option><option value="6 months">6 months</option><option value="7 months">7 months</option><option value="8 months">8 months</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" style="display: none" data-wait="Please wait..." data-w-id="6061c2fa-9f89-d152-9cd0-270f3c2a3002" class="button w-button"></form>
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -452,7 +411,7 @@
             <div>
               <div id="select-type" class="row w-row">
                 <div class="debt-sources-type-elements w-clearfix w-col w-col-6">
-                  <h4 id="subsectionHeader-legalObligatoin" class="heading">Legal Obligation</h4><a href="#" data-w-id="4c586f89-5d7c-5b89-448b-aae55028d09c" class="link2">Change</a></div>
+                  <h4 id="subsectionHeader-legalObligatoin" class="heading">Legal Obligation</h4><a href="#" data-w-id="4c586f89-5d7c-5b89-448b-aae55028d09c" class="link2">Remove</a></div>
                 <div class="debt-sources-type-elements w-col w-col-6">
                   <div id="icon-credit-card" class="icon regular disabled"></div>
                   <div id="icon-student-loan" class="icon solid disabled"></div>
@@ -473,7 +432,7 @@
               <input type="number" step="0.01" class="w-input" maxlength="256" name="Legal-Obligation-Interest-Rate-2" data-name="Legal Obligation Interest Rate 2" placeholder="e.g.  29.99%" id="Legal-Obligation-Interest-Rate-2" required="">
               <label for="Legal-Obligation-Remaining-Term-2" class="form-label">Remaining Term</label>
               <select id="Legal-Obligation-Remaining-Term-2" name="Legal-Obligation-Remaining-Term-2" data-name="Legal Obligation Remaining Term 2" class="w-select" required="">
-                <option value="">Select one...</option><option value="1 month">1 month</option><option value="2 months">2 months</option><option value="3 months">3 months</option><option value="4 months">4 months</option><option value="5 months">5 months</option><option value="6 months">6 months</option><option value="7 months">7 months</option><option value="8 months">8 months</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" data-wait="Please wait..." data-w-id="4c586f89-5d7c-5b89-448b-aae55028d0b9" class="button w-button"></form>
+                <option value="">Select one...</option><option value="1 month">1 month</option><option value="2 months">2 months</option><option value="3 months">3 months</option><option value="4 months">4 months</option><option value="5 months">5 months</option><option value="6 months">6 months</option><option value="7 months">7 months</option><option value="8 months">8 months</option><option value="9 months">9 months</option><option value="10 months">10 months</option><option value="11 months">11 months</option><option value="12 months">12 months (1 year)</option><option value="13 months">13 months</option><option value="14 months">14 months</option><option value="15 months">15 months</option><option value="16 months">16 months</option><option value="17 months">17 months</option><option value="18 months">18 months</option><option value="19 months">19 months</option><option value="20 months">20 months</option><option value="21 months">21 months</option><option value="22 months">22 months</option><option value="23 months">23 months</option><option value="24 months">24 months (2 years)</option><option value="25 months">25 months</option><option value="26 months">26 months</option><option value="27 months">27 months</option><option value="28 months">28 months</option><option value="29 months">29 months</option><option value="30 months">30 months</option><option value="31 months">31 months</option><option value="32 months">32 months</option><option value="33 months">33 months</option><option value="34 months">34 months</option><option value="35 months">35 months</option><option value="36 months">36 months (3 years)</option><option value="37 months">37 months</option><option value="38 months">38 months</option><option value="39 months">39 months</option><option value="40 months">40 months</option><option value="41 months">41 months</option><option value="42 months">42 months</option><option value="43 months">43 months</option><option value="44 months">44 months</option><option value="45 months">45 months</option><option value="46 months">46 months</option><option value="47 months">47 months</option><option value="48 months">48 months (4 years)</option><option value="49 months">49 months</option><option value="50 months">50 months</option><option value="51 months">51 months</option><option value="52 months">52 months</option><option value="53 months">53 months</option><option value="54 months">54 months</option><option value="55 months">55 months</option><option value="56 months">56 months</option><option value="57 months">57 months</option><option value="58 months">58 months</option><option value="59 months">59 months</option><option value="60 months">60 months (5 years)</option><option value="61 months">61 months</option><option value="62 months">62 months</option><option value="63 months">63 months</option><option value="64 months">64 months</option><option value="65 months">65 months</option><option value="66 months">66 months</option><option value="67 months">67 months</option><option value="68 months">68 months</option><option value="69 months">69 months</option><option value="70 months">70 months</option><option value="71 months">71 months</option><option value="72 months">72 months (6 years)</option><option value="73 months">73 months</option><option value="74 months">74 months</option><option value="75 months">75 months</option><option value="76 months">76 months</option><option value="77 months">77 months</option><option value="78 months">78 months</option><option value="79 months">79 months</option><option value="80 months">80 months</option><option value="81 months">81 months</option><option value="82 months">82 months</option><option value="83 months">83 months</option><option value="84 months">84 months (7 years)</option><option value="85 months">85 months</option><option value="86 months">86 months</option><option value="87 months">87 months</option><option value="88 months">88 months</option><option value="89 months">89 months</option><option value="90 months">90 months</option><option value="91 months">91 months</option><option value="92 months">92 months</option><option value="93 months">93 months</option><option value="94 months">94 months</option><option value="95 months">95 months</option><option value="96 months">96 months (8 years)</option><option value="97 months">97 months</option><option value="98 months">98 months</option><option value="99 months">99 months</option><option value="100 months">100 months</option><option value="101 months">101 months</option><option value="102 months">102 months</option></select><input type="submit" value="Add" style="display: none" data-wait="Please wait..." data-w-id="4c586f89-5d7c-5b89-448b-aae55028d0b9" class="button w-button"></form>
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -516,7 +475,7 @@
         </div>
         <div id="remove-confirmation-overlay" class="overlay" style="display:none">
           <h4 class="overlay-header">Are you sure?</h4>
-          <p>You will lose all of the information that you have entered.</p><a href="#" class="hollow-button primary">Cancel</a><a href="#" class="button right w-button">I&#x27;m sure</a></div>
+          <p>You will lose all of the information that you have entered.</p><a href="#" id="cancelRemoval" class="hollow-button primary">Cancel</a><a href="#" id="sureRemoval" class="button right w-button">I&#x27;m sure</a></div>
 
       </div>
     </div>
