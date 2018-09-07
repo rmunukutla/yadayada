@@ -38,7 +38,9 @@
           }
           var current = $(this).parent().parent().parent().parent().parent();
           $("#remove-confirmation-overlay").show();
+          $("#dark-screen").show();
           $("#sureRemoval").click(function() {
+            $("#dark-screen").hide();
             $("#remove-confirmation-overlay").hide();
             current.remove();
             userVar--;
@@ -50,6 +52,7 @@
             }
           });
           $("#cancelRemoval").click(function() {
+            $("#dark-screen").hide();
             $("#remove-confirmation-overlay").hide();
           });
         });
@@ -473,10 +476,11 @@
             </div>
           </div>
         </div>
-        <div id="remove-confirmation-overlay" class="overlay" style="display:none">
+        <div id="remove-confirmation-overlay" class="overlay" style="display:none; z-index:1000">
           <h4 class="overlay-header">Are you sure?</h4>
           <p>You will lose all of the information that you have entered.</p><a href="#" id="cancelRemoval" class="hollow-button primary">Cancel</a><a href="#" id="sureRemoval" class="button right w-button">I&#x27;m sure</a></div>
-
+        <div id="dark-screen">
+        </div>
       </div>
     </div>
   </div>

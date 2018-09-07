@@ -4,8 +4,6 @@ Stuff about yadayada
 # Issues
 - Add in the symbols $ and % in input (and general formatting) when user is not editing that input box, type right to left
 
-- Darken rest of screen when removal overlay is open, make removal box in middle of screen, stop dropdown box from being z-indexed over it
-
 - Make input cards take up less space (flex-wrap, div the label and the input)
 
 - No save and continue when there is no input boxes
@@ -22,3 +20,5 @@ Stuff about yadayada
 - Remove term for payday loan and put "Original Loan Date" with date input and date picker
 
 - Add overlay to confirm removal, No add button, "Remove" instead of "Change"
+
+- Darken rest of screen when removal overlay is open, make removal box in middle of screen, stop dropdown box from being z-indexed over it
