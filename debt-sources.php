@@ -322,6 +322,7 @@
         $("#source-another").hide();
         $("#debt-selector-box").hide();
         $("#source-clickable").show();
+        $("#saveButton").show();
         var copy = $(inputBox).clone();
         var newID = "real-" + userVar + "-" + copy.attr('id');
         copy = copy.attr("id",newID);
@@ -345,6 +346,7 @@
               $("#debt-selector-box").show();
               $("#source-another").hide();
               $("#source-clickable").hide();
+              $("#saveButton").hide();
             }
           });
           $("#cancelRemoval").click(function() {
