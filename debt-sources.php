@@ -786,7 +786,7 @@
     <div class="w-container">
       <div class="w-row">
         <div class="w-col w-col-8"></div>
-        <div class="align-right w-col w-col-4"><a href="#" id="saveButton" class="button full-width">Save &amp; Continue</a><a href="#" class="button full-width disabled" style="display:none">Save &amp; Continue</a></div>
+        <div class="align-right w-col w-col-4"><a href="#" id="saveButton" style="display: none" class="button full-width">Save &amp; Continue</a><a href="#" class="button full-width disabled" style="display:none">Save &amp; Continue</a></div>
       </div>
     </div>
   </div>
