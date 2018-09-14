@@ -326,8 +326,13 @@
         var copy = $(inputBox).clone();
         var newID = "real-" + userVar + "-" + copy.attr('id');
         copy = copy.attr("id",newID);
-        userVar++;
         copy.appendTo("#paste-area");
+        var inputs = $("#"+ newID + ' :input[type!=submit]');
+        inputs.each(function(){
+          var newName = $(this).attr('name') + '-real-' + userVar;
+          $(this).attr('name',newName);
+        });
+        userVar++;
         copy.show();
         $(".link2").click(function(){
           if($("#remove-confirmation-overlay").is(":visible")) {
