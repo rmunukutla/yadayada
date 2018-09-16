@@ -323,6 +323,7 @@
         $("#debt-selector-box").hide();
         $("#source-clickable").show();
         $("#saveButton").show();
+        $("#continueButton").show();
         var copy = $(inputBox).clone();
         var newID = "real-" + userVar + "-" + copy.attr('id');
         copy = copy.attr("id",newID);
@@ -352,6 +353,7 @@
               $("#source-another").hide();
               $("#source-clickable").hide();
               $("#saveButton").hide();
+              $("#continueButton").hide();
             }
           });
           $("#cancelRemoval").click(function() {
@@ -365,10 +367,21 @@
         });
       }
       $("#saveButton").click(function() {
+        //TODO: Add post functionality to save inputs
+        var count = 0;
+        $("[id$=input-box").each(function(){
+            var input = $(this);
+            if(input.is(":visible")) {
+              count++;
+              input.find("input[type=submit]").click();
+            }
+        });
+      });
+      $("#continueButton").click(function() {
         //TODO: Add functionality to go to next page.
       });
       $("#source-clickable").click(function() {
-          var count = 0;
+        var count = 0;
         $("[id$=input-box").each(function(){
             var input = $(this);
             if(input.is(":visible")) {
@@ -790,8 +803,9 @@
   <div class="cta-section">
     <div class="w-container">
       <div class="w-row">
-        <div class="w-col w-col-8"></div>
-        <div class="align-right w-col w-col-4"><a href="#" id="saveButton" style="display: none" class="button full-width">Save &amp; Continue</a><a href="#" class="button full-width disabled" style="display:none">Save &amp; Continue</a></div>
+        <div class="w-col w-col-8">
+        <a href="#" id="saveButton" style="display: none" class="hollow-button">Save</a></div>
+        <div class="align-right w-col w-col-4"><a href="#" id="continueButton" style="display: none" class="button full-width">Continue</a>
       </div>
     </div>
   </div>
