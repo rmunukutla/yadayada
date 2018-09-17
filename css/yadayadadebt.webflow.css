@@ -78,7 +78,7 @@ p {
 }
 
 a {
-  color: #2196f3;
+  color: #d81b60;
   text-decoration: none;
 }
 
@@ -199,14 +199,14 @@ figcaption {
 
 .button.small {
   padding: 7px 12px;
-  background-color: #2196f3;
+  background-color: #d81b60;
   font-size: 11px;
   line-height: 14px;
   text-transform: uppercase;
 }
 
 .button.small:hover {
-  background-color: #1565c0;
+  background-color: #ff005d;
 }
 
 .button.tab {
@@ -220,11 +220,11 @@ figcaption {
 }
 
 .button.tab.w--current {
-  background-color: #2196f3;
+  background-color: #d81b60;
 }
 
 .button.tab.w--current:hover {
-  background-color: #1565c0;
+  background-color: #ff005d;
 }
 
 .button.with-field {
@@ -391,9 +391,10 @@ figcaption {
 }
 
 .cta-section {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 54px;
+  padding-bottom: 54px;
   background-color: #dbdbdb;
+  margin-top: 16px;
 }
 
 .cta-section.centered {
@@ -401,7 +402,7 @@ figcaption {
 }
 
 .cta-section.centered-accented {
-  background-color: #2196f3;
+  background-color: #d81b60;
   background-image: -webkit-linear-gradient(270deg, #d81b60, #ff005d 100%, #fff 101%), -webkit-linear-gradient(270deg, #ff005d, #ff005d);
   background-image: linear-gradient(180deg, #d81b60, #ff005d 100%, #fff 101%), linear-gradient(180deg, #ff005d, #ff005d);
   color: #fff;
@@ -498,6 +499,10 @@ figcaption {
   color: #ff005d;
 }
 
+.hollow-button.strong {
+  font-weight: 700;
+}
+
 .hollow-button.white {
   border-color: #fff;
   color: #fff;
@@ -544,17 +549,17 @@ figcaption {
 .form-label {
   display: inline;
   margin-bottom: 6px;
-  margin-left: 8px;
+  margin-left: 0px;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
 }
-
+/*
 .form-label.start {
   display: inline;
   margin-left: 0px;
 }
-
+*/
 .form-label.plus8 {
   margin-left: 16px;
 }
@@ -587,7 +592,7 @@ figcaption {
 }
 
 .form-field:focus {
-  box-shadow: 0 0 0 2px #2196f3;
+  box-shadow: 0 0 0 2px #d81b60;
 }
 
 .form-field.text-area {
@@ -621,13 +626,13 @@ figcaption {
   margin-left: 4px;
   padding: 8px;
   border-radius: 100px;
-  background-color: #2196f3;
+  background-color: #d81b60;
   -webkit-transition: background-color 150ms ease;
   transition: background-color 150ms ease;
 }
 
 .social-button:hover {
-  background-color: #1565c0;
+  background-color: #ff005d;
   opacity: 1;
 }
 
@@ -744,12 +749,12 @@ figcaption {
 .link {
   display: block;
   margin-bottom: 10px;
-  color: #2196f3;
+  color: #d81b60;
   text-decoration: none;
 }
 
 .link:hover {
-  color: #1565c0;
+  color: #ff005d;
 }
 
 .footer-brand-text {
@@ -1491,7 +1496,7 @@ html.w-mod-js *[data-ix="scale-on-scroll"] {
 
 @media (max-width: 991px) {
   .hamburger-button:hover {
-    color: #2196f3;
+    color: #d81b60;
   }
   .hamburger-button.w--open {
     background-color: #333;
@@ -1552,6 +1557,9 @@ html.w-mod-js *[data-ix="scale-on-scroll"] {
   }
   .slider {
     height: 135px;
+  }
+  .column-2 {
+    text-align: left;
   }
 }
 
@@ -1647,6 +1655,12 @@ html.w-mod-js *[data-ix="scale-on-scroll"] {
   .slider {
     height: 80px;
   }
+  .icon-2.solid {
+    font-size: 24px;
+  }
+  .column-2 {
+    text-align: left;
+  }
 }
 
 @media (max-width: 479px) {
@@ -1706,6 +1720,9 @@ html.w-mod-js *[data-ix="scale-on-scroll"] {
   }
   .slider {
     height: 135px;
+  }
+  .column-2 {
+    text-align: left;
   }
 }
 

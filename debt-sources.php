@@ -426,9 +426,9 @@
       <h2 class="section-heading">What do you need help paying off?</h2>
       <div>
         <div id="paste-area"></div>
-        <h4 id="source-clickable" class="heading-3 left link" style="display: none">Click to add another debt source</h4>
+        <h4 id="source-clickable" class="heading-3 left link" style="display: none">Add another source</h4>
         <h4 id="source-first" class="heading-3 left">Enter your first source</h4>
-        <h4 id="source-another" style="display: none" class="heading-3 left">Enter another source</h4>
+        <h4 id="source-another" style="display: none" class="heading-3 left">Add another source</h4>
         <div id="debt-selector-box" class="div-block box">
           <div id="select-type" class="row w-row">
             <div class="debt-sources-type-elements w-col w-col-6">
@@ -803,9 +803,9 @@
   <div class="cta-section">
     <div class="w-container">
       <div class="w-row">
-        <div class="w-col w-col-8">
-        <a href="#" id="saveButton" style="display: none" class="hollow-button">Save</a></div>
-        <div class="align-right w-col w-col-4"><a href="#" id="continueButton" style="display: none" class="button full-width">Continue</a>
+        <div class="column-2 w-col w-col-6 w-col-small-6 w-col-tiny-6">
+        <a href="#" id="saveButton" style="display: none" class="hollow-button strong">Save</a></div>
+        <div class="align-right w-col w-col-6 w-col-small-6 w-col-tiny-6"><a href="#" id="continueButton" style="display: none" class="button">Continue</a>
       </div>
     </div>
   </div>
