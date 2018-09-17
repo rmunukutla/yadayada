@@ -805,7 +805,7 @@
       <div class="w-row">
         <div class="column-2 w-col w-col-6 w-col-small-6 w-col-tiny-6">
         <a href="#" id="saveButton" style="display: none" class="hollow-button strong">Save</a></div>
-        <div class="align-right w-col w-col-6 w-col-small-6 w-col-tiny-6"><a href="#" id="continueButton" style="display: none" class="button">Continue</a>
+        <div class="align-right w-col w-col-6 w-col-small-6 w-col-tiny-6"><a href="#" id="continueButton" style="display: none" class="button">Continue to Dashboard</a>
       </div>
     </div>
   </div>
