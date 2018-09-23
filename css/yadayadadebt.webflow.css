@@ -803,12 +803,11 @@ figcaption {
 .footer-link {
   display: block;
   margin-bottom: 6px;
-  color: rgba(0, 0, 0, .74);
   text-decoration: none;
 }
 
 .footer-link:hover {
-  color: #3b99d9;
+  color: #ff005d;
 }
 
 .footer-link.with-icon {
@@ -1161,6 +1160,17 @@ figcaption {
   clear: both;
 }
 
+.tooltip.outside {
+  margin-top: 0px;
+  margin-bottom: 24px;
+}
+
+.tooltip.info {
+  background-image: -webkit-linear-gradient(270deg, #000, #d81b60 0%, #ff005d);
+  background-image: linear-gradient(180deg, #000, #d81b60 0%, #ff005d);
+  color: #fff;
+}
+
 .tooltip-arrow {
   position: relative;
   left: 20px;
@@ -1443,6 +1453,14 @@ figcaption {
 
 .heading-4 {
   display: block;
+}
+
+.bottom-8 {
+  margin-bottom: 8px;
+}
+
+.bottom-16 {
+  margin-bottom: 16px;
 }
 
 html.w-mod-js *[data-ix="fade-in-bottom-page-loads"] {

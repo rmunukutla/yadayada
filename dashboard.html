@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--  This site was created in Webflow. http://www.webflow.com  -->
-<!--  Last Published: Tue Aug 21 2018 12:08:16 GMT+0000 (UTC)  -->
-<html data-wf-page="5b30241b4a7ded43084853c3" data-wf-site="5ac55225016bff3a51ced38b">
+<!--  Last Published: Sun Sep 23 2018 17:03:28 GMT+0000 (UTC)  -->
+<html data-wf-page="5b95845306db3608b8637846" data-wf-site="5ac55225016bff3a51ced38b">
 <head>
   <meta charset="utf-8">
-  <title>Debt Sources</title>
-  <meta content="Debt Sources" property="og:title">
+  <title>Dashboard v2</title>
+  <meta content="Dashboard v2" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -35,7 +35,10 @@
     <div class="container-top-24 w-container">
       <h2 class="section-heading">Let&#x27;s see your options</h2>
       <div>
-        <div class="section-subheading">[first name]if you have [$900.00] set aside this month, you can...<br></div>
+        <form id="monthly-amount-available" name="monthly-amount-available" data-name="Monthly Amount Available">
+
+          <div class="section-subheading">[first name]if you have <input type="text" id="monthly-amount" name="monthly-amount" data-name="monthly-amount" placeholder="$900.00" maxlength="200" class="form-field"> set aside this month, you can...<br></div>
+          </form>
         <div data-duration-in="300" data-duration-out="100" class="w-tabs">
           <div class="tab-title-menu w-tab-menu">
             <a data-w-tab="Tab 1" class="tab w-inline-block w-tab-link w--current">
@@ -47,198 +50,240 @@
           </div>
           <div class="w-tab-content">
             <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active">
-              <div class="row-2 w-row">
-                <div class="w-col w-col-6">
-                  <h5>Credit Cards</h5>
-                  <div id="debt-source-block" class="div-block box thin">
-                    <div id="select-type" class="row w-row">
-                      <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
-                        <div id="icon-credit-card" class="icon large"></div>
-                      </div>
-                      <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
-                        <p>My Alaska Air Visa Card</p>
-                        <div class="w-row">
-                          <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                            <p id="credit-card-balance-filled" class="form-label start">Pay</p>
-                            <p id="credit-card-balance-filled" class="medium block">$53.67</p>
-                            <p class="inline"><span><strong class="good">Pay off now</strong></span></p>
-                          </div>
-                          <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                            <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
-                            <p id="credit-card-balance-filled" class="medium block">$--.--</p>
-                          </div>
+              <div class="tooltip info outside">
+                <div id="icon-payday-loan" class="icon gold solid"></div>
+                <div>Below are our recommendations for this month to help you pay off your debt.</div>
+              </div>
+              <div>
+                <div class="bottom-16"><a href="debt-sources.php">Update or add sources</a></div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-payday-loan" class="icon solid large"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Payday loan`</p>
+                      <p class="card_header">A Quick Fix</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$396.23</p>
                         </div>
-                        <div class="tooltip">
-                          <div class="icon solid disabled"></div>
-                          <div>You&#x27;ve paid $191.09 interest over the past year.<br></div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$--.--</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Interest Rate</p>
+                          <p id="credit-card-balance-filled" class="medium block">324.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block good">0 Months</p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div id="debt-source-block" class="div-block box thin">
-                    <div data-animation="slide" data-hide-arrows="1" data-duration="500" data-infinite="1" class="box-slider w-slider">
-                      <div class="w-slider-mask">
-                        <div class="w-slide">
-                          <div id="select-type" class="row w-row">
-                            <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
-                              <div id="icon-credit-card" class="icon large"></div>
-                            </div>
-                            <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
-                              <p>My Alaska Air Visa Card</p>
-                              <div class="w-row">
-                                <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                                  <p id="credit-card-balance-filled" class="form-label start">Pay</p>
-                                  <p id="credit-card-balance-filled" class="medium block">$53.67</p>
-                                </div>
-                                <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                                  <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
-                                  <p id="credit-card-balance-filled" class="medium block">$--.--</p>
-                                </div>
-                              </div>
-                              <p class="end"><span><strong class="good">Pay off now</strong></span></p><a href="#" class="hollow-button primary">Make Payment</a></div>
-                          </div>
-                        </div>
-                        <div class="w-slide">
-                          <div class="w-row">
-                            <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                              <p id="credit-card-balance-filled" class="form-label start">Time to Pay off</p>
-                              <p id="credit-card-balance-filled" class="medium block">8 months</p>
-                            </div>
-                            <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                              <p id="credit-card-balance-filled" class="form-label start">Total interest Paid</p>
-                              <p id="credit-card-balance-filled" class="medium block">$53.23</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="left-arrow w-slider-arrow-left">
-                        <div class="box-slider-arrow w-icon-slider-left"></div>
-                      </div>
-                      <div class="right-arrow w-slider-arrow-right">
-                        <div class="box-slider-arrow w-icon-slider-right"></div>
-                      </div>
-                      <div class="slider-navigation w-slider-nav w-slider-nav-invert w-round"></div>
-                    </div>
-                  </div>
-                  <div id="debt-source-block" class="div-block box thin">
-                    <div id="select-type" class="row w-row">
-                      <div class="debt-sources-type-elements w-col w-col-2 w-col-small-2">
-                        <div id="icon-credit-card" class="icon large"></div>
-                      </div>
-                      <div class="debt-sources-type-elements w-col w-col-10 w-col-small-10">
-                        <p>My Alaska Air Visa Card</p>
-                        <div data-animation="slide" data-hide-arrows="1" data-duration="500" data-infinite="1" class="slider w-slider">
-                          <div class="mask w-slider-mask">
-                            <div class="w-slide">
-                              <div class="w-row">
-                                <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                                  <p id="credit-card-balance-filled" class="form-label start">Pay</p>
-                                  <p id="credit-card-balance-filled" class="medium block">$57.67</p>
-                                </div>
-                                <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                                  <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
-                                  <p id="credit-card-balance-filled" class="medium block">$53.23</p>
-                                </div>
-                              </div>
-                              <p class="end"><span><strong class="good">Pay off in 1 month</strong></span></p>
-                            </div>
-                            <div class="w-slide">
-                              <div class="w-row">
-                                <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                                  <p id="credit-card-balance-filled" class="form-label start">Time to Pay off</p>
-                                  <p id="credit-card-balance-filled" class="medium block">8 months</p>
-                                </div>
-                                <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                                  <p id="credit-card-balance-filled" class="form-label start">Total interest Paid</p>
-                                  <p id="credit-card-balance-filled" class="medium block">$53.23</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="left-arrow outside w-slider-arrow-left">
-                            <div class="box-slider-arrow w-icon-slider-left"></div>
-                          </div>
-                          <div class="right-arrow outside w-slider-arrow-right">
-                            <div class="box-slider-arrow w-icon-slider-right"></div>
-                          </div>
-                          <div data-w-id="3cd42623-9ecc-d335-a803-6b328e82f545" style="display:none" class="slider-navigation w-slider-nav w-slider-nav-invert w-round"></div>
-                        </div><a href="#" class="hollow-button primary">Make Payment</a></div>
-                    </div>
-                  </div>
-                  <div id="debt-source-block" class="div-block box thin">
-                    <div id="select-type" class="row w-row">
-                      <div class="debt-sources-type-elements w-col w-col-3 w-col-small-3">
-                        <div id="icon-credit-card" class="icon large"></div>
-                      </div>
-                      <div class="debt-sources-type-elements w-col w-col-9 w-col-small-9">
-                        <p>My Alaska Air Visa Card<br></p>
-                        <div class="w-row">
-                          <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                            <p id="credit-card-balance-filled" class="form-label start">Pay</p>
-                            <p id="credit-card-balance-filled" class="medium block">$47.16<br></p>
-                          </div>
-                          <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                            <p id="credit-card-balance-filled" class="form-label start">Remianing balance</p>
-                            <p id="credit-card-balance-filled" class="medium block">$473.12<br></p>
-                          </div>
-                        </div>
-                        <p class="end"><span><strong class="okay">5 months to pay off</strong></span></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div id="debt-source-block" class="div-block box thin">
-                    <div id="select-type" class="row w-row">
-                      <div class="debt-sources-type-elements w-col w-col-3 w-col-small-3">
-                        <div id="icon-credit-card" class="icon large"></div>
-                      </div>
-                      <div class="debt-sources-type-elements w-col w-col-9 w-col-small-9">
-                        <p>My Alaska Air Visa Card<br></p>
-                        <div class="w-row">
-                          <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                            <p id="credit-card-balance-filled" class="form-label start">Pay</p>
-                            <p id="credit-card-balance-filled" class="medium block">$147.16<br></p>
-                          </div>
-                          <div class="w-col w-col-6 w-col-stack w-col-small-6">
-                            <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
-                            <p id="credit-card-balance-filled" class="medium block">$8,473.12<br></p>
-                          </div>
-                        </div>
-                        <p class="end"><span><strong class="bad">12 months to pay off</strong></span></p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tooltip">
-                    <h5 class="heading-4">Credit Card Sumary</h5>
-                    <div class="w-row">
-                      <div class="w-col w-col-6"></div>
-                      <div class="w-col w-col-6"></div>
-                    </div>
-                    <div>You&#x27;ve paid $191.09 interest over the past year.</div>
                   </div>
                 </div>
-                <div class="w-col w-col-6">
-                  <h5>Student Loans</h5>
-                  <div id="debt-source-block" class="div-block box thin">
-                    <div id="select-type" class="row w-row">
-                      <div class="debt-sources-type-elements w-col w-col-3 w-col-small-3">
-                        <div id="icon-student-loan" class="icon large solid"></div>
-                      </div>
-                      <div class="debt-sources-type-elements w-col w-col-9 w-col-small-9">
-                        <p>My Alaska Air Visa Card</p>
-                        <p id="credit-card-balance-filled" class="medium">$57.67</p>
-                        <p class="end bad"><strong>3 months to pay off</strong></p>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-credit-card" class="icon large"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Credit Card</p>
+                      <p class="card_header">My Alaska Air Visa Card</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$53.67</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$--.--</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Interest Rate</p>
+                          <p id="credit-card-balance-filled" class="medium block">24.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block good">0 Months</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div id="debt-source-block" class="div-block box">
-                    <div id="select-type" class="row w-row">
-                      <div class="debt-sources-type-elements w-col w-col-3 w-col-small-3 w-col-tiny-3">
-                        <div id="icon-student-loan" class="icon large solid"></div>
+                </div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-credit-card" class="icon large"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Credit Card</p>
+                      <p class="card_header">My Alaska Air Visa Card</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$53.67</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$95.76</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Interest Rate</p>
+                          <p id="credit-card-balance-filled" class="medium block">24.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block good">2 Months</p>
+                        </div>
                       </div>
-                      <div class="debt-sources-type-elements w-col w-col-9 w-col-small-9 w-col-tiny-9">
-                        <p>My Alaska Air Visa Card</p>
-                        <p id="credit-card-balance-filled" class="medium">$57.67</p>
-                        <p class="end bad"><strong>3 months to pay off</strong></p>
+                    </div>
+                  </div>
+                </div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-credit-card" class="icon large"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Credit Card</p>
+                      <p class="card_header">My Alaska Air Visa Card</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$53.67</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$195.76</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Interest Rate</p>
+                          <p id="credit-card-balance-filled" class="medium block">24.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block okay">5 Months</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-credit-card" class="icon large"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Credit Card</p>
+                      <p class="card_header">My Alaska Air Visa Card</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$53.67</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$1,095.76</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Interest Rate</p>
+                          <p id="credit-card-balance-filled" class="medium block">24.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block okay">12 Months</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-student-loan" class="icon large solid"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Student Loan</p>
+                      <p class="card_header">My Great Education Loan</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$587.63</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$10,095.76</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Interest Rate</p>
+                          <p id="credit-card-balance-filled" class="medium block">24.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block good">28 Months</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-student-loan" class="icon large solid"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Legal Obligation</p>
+                      <p class="card_header">Child Support</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$500.00</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$10,095.76</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Cost of Living Adjustment</p>
+                          <p id="credit-card-balance-filled" class="medium block">10.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block good">8 Yrs 4 Months</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="debt-source-block" class="div-block box thin">
+                  <div id="select-type" class="row w-row">
+                    <div class="debt-sources-type-elements w-col w-col-2 w-col-medium-2 w-col-small-2">
+                      <div id="icon-student-loan" class="icon large solid"></div>
+                    </div>
+                    <div class="debt-sources-type-elements w-col w-col-10 w-col-medium-10 w-col-small-10">
+                      <p id="credit-card-balance-filled" class="form-label start">Loan</p>
+                      <p class="card_header">For My Dream Car</p>
+                      <div class="data-descriptor dashboard w-row">
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Monthly Payment</p>
+                          <p id="credit-card-balance-filled" class="medium block">$500.00</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Remaining balance</p>
+                          <p id="credit-card-balance-filled" class="medium block">$10,095.76</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Cost of Living Adjustment</p>
+                          <p id="credit-card-balance-filled" class="medium block">10.99%</p>
+                        </div>
+                        <div class="w-col w-col-3 w-col-tiny-tiny-stack">
+                          <p id="credit-card-balance-filled" class="form-label start">Status</p>
+                          <p id="credit-card-balance-filled" class="medium block good">8 Yrs 4 Months</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -248,6 +293,19 @@
             <div data-w-tab="Tab 2" class="w-tab-pane"></div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer accent">
+    <div class="w-container">
+      <h1 class="footer-brand-text">Yada Yada Debt</h1>
+      <div class="w-row">
+        <div class="w-col w-col-6">
+          <p>Yada Yada Debt&#x27;s goal it to help those that don&#x27;t get the time of day from Financial Advisors.</p>
+          <div><a href="#" class="social-icon-link w-inline-block"><img src="images/social-03.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-18.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-09.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-06.svg" width="20"></a></div>
+        </div>
+        <div class="w-col w-col-3"><a href="#" class="footer-link">Money</a><a href="#" class="footer-link">Debt</a><a href="#" class="footer-link">Advice</a></div>
+        <div class="w-col w-col-3"><a href="#" class="footer-link">About us</a><a href="#" class="footer-link">Legal</a></div>
       </div>
     </div>
   </div>
