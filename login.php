@@ -72,5 +72,18 @@
            </div>
          </div>
        </div>
+       <div class="footer accent">
+         <div class="w-container">
+           <h1 class="footer-brand-text">Yada Yada Debt</h1>
+           <div class="w-row">
+             <div class="w-col w-col-6">
+               <p>Yada Yada Debt&#x27;s goal it to help those that don&#x27;t get the time of day from Financial Advisors.</p>
+               <div><a href="#" class="social-icon-link w-inline-block"><img src="images/social-03.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-18.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-09.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-06.svg" width="20"></a></div>
+             </div>
+             <div class="w-col w-col-3"><a href="#" class="footer-link">Money</a><a href="#" class="footer-link">Debt</a><a href="#" class="footer-link">Advice</a></div>
+             <div class="w-col w-col-3"><a href="#" class="footer-link">About us</a><a href="#" class="footer-link">Legal</a></div>
+           </div>
+         </div>
+       </div>
   </body>
 </html>

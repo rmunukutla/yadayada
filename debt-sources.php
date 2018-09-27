@@ -809,6 +809,19 @@
       </div>
     </div>
   </div>
+  <div class="footer accent">
+    <div class="w-container">
+      <h1 class="footer-brand-text">Yada Yada Debt</h1>
+      <div class="w-row">
+        <div class="w-col w-col-6">
+          <p>Yada Yada Debt&#x27;s goal it to help those that don&#x27;t get the time of day from Financial Advisors.</p>
+          <div><a href="#" class="social-icon-link w-inline-block"><img src="images/social-03.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-18.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-09.svg" width="20"></a><a href="#" class="social-icon-link w-inline-block"><img src="images/social-06.svg" width="20"></a></div>
+        </div>
+        <div class="w-col w-col-3"><a href="#" class="footer-link">Money</a><a href="#" class="footer-link">Debt</a><a href="#" class="footer-link">Advice</a></div>
+        <div class="w-col w-col-3"><a href="#" class="footer-link">About us</a><a href="#" class="footer-link">Legal</a></div>
+      </div>
+    </div>
+  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
