@@ -1,300 +1,3 @@
-<?php
-
-  //Development
-  $servername="localhost";
-  $username="root";
-  $password="root";
-  $dbname="yadayada";
-
-  /*
-  //Production
-  $servername="";
-  $username="root";
-  $password="root";
-  $dbname="yadayada";
-  */
-
-  // Establish connection to MySQL
-  $con = mysqli_connect($servername,$username,$password,$dbname);
-
-  //Check connection status
-  if(!$con) {
-    die("connection failed". $con->connection_error);
-  }
-  /* if($con) {
-    echo "connection successful";
-  } */
-
-  //Credit card
-  if (isset($_POST['Credit-Card-Nickname'])
-      && isset($_POST['credit-card-balance'])
-      && isset($_POST['credit-card-min-payment'])
-      && isset($_POST['credit-card-apr'])) {
-
-        //Move form values into variables
-        $user_id = 1; // This needs to be tied to user login TBD
-        $credit_card_nickname= $_POST['Credit-Card-Nickname'];
-        $credit_card_balance = $_POST['credit-card-balance'];
-        $credit_card_min_payment = $_POST['credit-card-min-payment'];
-        $credit_card_apr = $_POST['credit-card-apr'];
-
-        //Insert into  database table
-        $sql_insert = "INSERT INTO yadaya.debt_sources
-                                  (user_id,
-                                   debt_identifier,
-                                   nick_name,
-                                   debt_type,
-                                   original_balance,
-                                   original_term,
-                                   interest_type,
-                                   interest_rate,
-                                   remaining_balance,
-                                   remaining_term,
-                                   minimum_payment,
-                                   create_timestamp,
-                                   update_timestamp)
-                           VALUES ('$user_id',
-                                   VALUES(NULL),
-                                   '$credit_card_nickname',
-                                   'Credit Card',
-                                   VALUES(NULL),
-                                   VALUES(NULL),
-                                   'APR',
-                                   '$credit_card_apr',
-                                   '$credit_card_balance',
-                                   VALUES(NULL),
-                                   VALUES(NULL),
-                                   create_timestamp,
-                                   create_timestamp)";
-
-        //Issue INSERT to database table
-        if($con->query($sql_insert) == TRUE){
-          echo "insert successful";
-        }
-        else {
-          echo "insert failed: " . $con->error;
-        }
-
-        $con->close();
-      }
-
-      //Student loan
-      if(isset($_POST['Student-Loan-Nickname']) &&
-         isset($_POST['Original-Student-Loan-Amount']) &&
-         isset($_POST['Student-Loan-Interest-Rate']) &&
-         isset($_POST['Student-Loan-Remain-Term'])) {
-
-           //Move form values into variables
-           $user_id = 1; // This needs to be tied to user login TBD
-           $student_loan_nickname = $_POST['Student-Loan-Nickname'];
-           $original_student_loan_amount = $_POST['Original-Student-Loan-Amount'];
-           $student_loan_interest_rate = $_POST['Student-Loan-Interest-Rate'];
-           $student_loan_remain_term = $_POST['Student-Loan-Remain-Term'];
-
-           //Insert into  database table
-           $sql_insert = "INSERT INTO yadaya.debt_sources
-                                     (user_id,
-                                      debt_identifier,
-                                      nick_name,
-                                      debt_type,
-                                      original_balance,
-                                      original_term,
-                                      interest_type,
-                                      interest_rate,
-                                      remaining_balance,
-                                      remaining_term,
-                                      minimum_payment,
-                                      create_timestamp,
-                                      update_timestamp)
-                              VALUES ('$user_id',
-                                      VALUES(NULL),
-                                      '$student_loan_nickname',
-                                      'Student Loan',
-                                      '$original_student_loan_amount',
-                                      VALUES(NULL),
-                                      'APR',
-                                      '$student_loan_interest_rate',
-                                      VALUES(NULL),
-                                      '$student_loan_remain_term',
-                                      VALUES(NULL),
-                                      create_timestamp,
-                                      create_timestamp)";
-
-           //Issue INSERT to database table
-           if($con->query($sql_insert) == TRUE){
-             echo "insert successful";
-           }
-           else {
-             echo "insert failed: " . $con->error;
-           }
-
-           $con->close();
-
-         }
-
-         //Payday loan
-         if(isset($_POST['Payday-Loan-Nickname']) &&
-            isset($_POST['Original-Payday-Loan-Amount']) &&
-            isset($_POST['Payday-Loan-Interest-Rate']) &&
-            isset($_POST['Payday-Loan-Remain-Term'])) {
-
-              //Move form values into variables
-              $user_id = 1; // This needs to be tied to user login TBD
-              $payday_loan_nickname = $_POST['Payday-Loan-Nickname'];
-              $original_payday_loan_amount = $_POST['Original-Payday-Loan-Amount'];
-              $payday_loan_interest_rate = $_POST['Payday-Loan-Interest-Rate'];
-              $payday_loan_remain_term = $_POST['Payday-Loan-Remain-Term'];
-
-              //Insert into  database table
-              $sql_insert = "INSERT INTO yadaya.debt_sources
-                                        (user_id,
-                                         debt_identifier,
-                                         nick_name,
-                                         debt_type,
-                                         original_balance,
-                                         original_term,
-                                         interest_type,
-                                         interest_rate,
-                                         remaining_balance,
-                                         remaining_term,
-                                         minimum_payment,
-                                         create_timestamp,
-                                         update_timestamp)
-                                 VALUES ('$user_id',
-                                         VALUES(NULL),
-                                         '$payday_loan_nickname',
-                                         'Payday Loan',
-                                         '$original_payday_loan_amount',
-                                         VALUES(NULL),
-                                         'APR',
-                                         '$payday_loan_interest_rate',
-                                         VALUES(NULL),
-                                         '$payday_loan_remain_term',
-                                         VALUES(NULL),
-                                         create_timestamp,
-                                         create_timestamp)";
-
-              //Issue INSERT to database table
-              if($con->query($sql_insert) == TRUE){
-                echo "insert successful";
-              }
-              else {
-                echo "insert failed: " . $con->error;
-              }
-
-              $con->close();
-
-            }
-
-            //Loan
-            if(isset($_POST['Loan-Nickname']) &&
-               isset($_POST['Original-Loan-Amount']) &&
-               isset($_POST['Loan-Interest-Rate']) &&
-               isset($_POST['Loan-Remain-Term'])) {
-
-                 //Move form values into variables
-                 $user_id = 1; // This needs to be tied to user login TBD
-                 $loan_nickname = $_POST['Loan-Nickname'];
-                 $original_loan_amount = $_POST['Original-Loan-Amount'];
-                 $loan_interest_rate = $_POST['Loan-Interest-Rate'];
-                 $loan_remain_term = $_POST['Loan-Remain-Term'];
-
-                 //Insert into  database table
-                 $sql_insert = "INSERT INTO yadaya.debt_sources
-                                           (user_id,
-                                            debt_identifier,
-                                            nick_name,
-                                            debt_type,
-                                            original_balance,
-                                            original_term,
-                                            interest_type,
-                                            interest_rate,
-                                            remaining_balance,
-                                            remaining_term,
-                                            minimum_payment,
-                                            create_timestamp,
-                                            update_timestamp)
-                                    VALUES ('$user_id',
-                                            VALUES(NULL),
-                                            '$loan_nickname',
-                                            'Loan',
-                                            '$original_loan_amount',
-                                            VALUES(NULL),
-                                            'APR',
-                                            '$loan_interest_rate',
-                                            VALUES(NULL),
-                                            '$loan_remain_term',
-                                            VALUES(NULL),
-                                            create_timestamp,
-                                            create_timestamp)";
-
-                 //Issue INSERT to database table
-                 if($con->query($sql_insert) == TRUE){
-                   echo "insert successful";
-                 }
-                 else {
-                   echo "insert failed: " . $con->error;
-                 }
-
-                 $con->close();
-
-               }
-
-               //Legal Obligation
-               if(isset($_POST['Legal-Obligation-Nickname']) &&
-                  isset($_POST['Legal-Obligation-Amount']) &&
-                  isset($_POST['Legal-Obligation-Interest-Rate']) &&
-                  isset($_POST['Legal-Obligation-Remaining-Term'])) {
-
-                    //Move form values into variables
-                    $user_id = 1; // This needs to be tied to user login TBD
-                    $legal_obligation_nickname = $_POST['Legal-Obligation-Nickname'];
-                    $legal_obligation_loan_amount = $_POST['Legal-Obligation-Amount'];
-                    $legal_obligation_interest_rate = $_POST['Legal-Obligation-Interest-Rate'];
-                    $legal_obligation_remain_term = $_POST['Legal-Obligation-Remaining-Term'];
-
-                    //Insert into  database table
-                    $sql_insert = "INSERT INTO yadaya.debt_sources
-                                              (user_id,
-                                               debt_identifier,
-                                               nick_name,
-                                               debt_type,
-                                               original_balance,
-                                               original_term,
-                                               interest_type,
-                                               interest_rate,
-                                               remaining_balance,
-                                               remaining_term,
-                                               minimum_payment,
-                                               create_timestamp,
-                                               update_timestamp)
-                                       VALUES ('$user_id',
-                                               VALUES(NULL),
-                                               '$legal_obligation_nickname',
-                                               'Legal Obligation',
-                                               '$legal_obligation_loan_amount',
-                                               VALUES(NULL),
-                                               'APR',
-                                               '$legal_obligation_interest_rate',
-                                               VALUES(NULL),
-                                               '$legal_obligation_remain_term',
-                                               VALUES(NULL),
-                                               create_timestamp,
-                                               create_timestamp)";
-
-                    //Issue INSERT to database table
-                    if($con->query($sql_insert) == TRUE){
-                      echo "insert successful";
-                    }
-                    else {
-                      echo "insert failed: " . $con->error;
-                    }
-
-                    $con->close();
-
-                  }
-?>
-
 <!--  This site was created in Webflow. http://www.webflow.com  -->
 <!--  Last Published: Fri Aug 03 2018 14:28:40 GMT+0000 (UTC)  -->
 <html data-wf-page="5b6067feee5ea259901bf5c7" data-wf-site="5ac55225016bff3a51ced38b">
@@ -368,6 +71,27 @@
       }
       $("#saveButton").click(function() {
         //TODO: Add post functionality to save inputs
+
+        //Ravi's code changes begin
+        var input_names = document.getElementsByClassName('w-input');
+        var dataString = "";
+
+        $.each(input_names, function(index, obj) {
+          //console.log(obj.name + ": " + obj.value);
+          dataString = dataString + obj.name + ":" + obj.value + ";";
+        })
+
+        $.ajax({
+          type:"post",
+          url:"php/debt-sources-backend.php",
+          data:dataString,
+          cache:false,
+          success: function(html){
+            $('#msg').html(html);
+          }
+        });
+        //Ravi's code changes end
+
         var count = 0;
         $("[id$=input-box").each(function(){
             var input = $(this);
@@ -376,7 +100,11 @@
               input.find("input[type=submit]").click();
             }
         });
+
+        return false;
+
       });
+
       $("#continueButton").click(function() {
         //TODO: Add functionality to go to next page.
       });
@@ -473,7 +201,7 @@
                 </div>
               </div>
             </div>
-            <form autocomplete="off" id="wf-form-Credit-Card-Form" name="wf-form-Credit-Card-Form" data-name="Credit Card Form">
+            <form autocomplete="off" id="wf-form-Credit-Card-Form" name="wf-form-Credit-Card-Form" data-name="Credit Card Form" class="ajax">
               <label for="Credit-Card-Nickname" class="form-label">Nickname</label>
               <input type="text" class="w-input" maxlength="256" name="Credit-Card-Nickname" data-name="Credit Card Nickname" placeholder="e.g. My Visa Fun Card" id="Credit-Card-Nickname" required="">
               <div class="data-descriptor">
@@ -800,6 +528,9 @@
       </div>
     </div>
   </div>
+
+  <p id="msg"></p>
+
   <div class="cta-section">
     <div class="w-container">
       <div class="w-row">
