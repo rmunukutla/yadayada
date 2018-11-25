@@ -10,6 +10,23 @@
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/yadayadadebt.webflow.css" rel="stylesheet" type="text/css">
+  <!-- Ravi's changes to include signon BEGIN-->
+  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCUk7ZdY62cOKXINe_nSuXVEEOAOsOzrHU",
+      authDomain: "yadayada-4e02c.firebaseapp.com",
+      databaseURL: "https://yadayada-4e02c.firebaseio.com",
+      projectId: "yadayada-4e02c",
+      storageBucket: "yadayada-4e02c.appspot.com",
+      messagingSenderId: "11800929915"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.0/firebaseui.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.0/firebaseui.css" />
+<!-- Ravi's changes to include signon END-->
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["Inconsolata:400,700","Merriweather:300,300italic,400,400italic,700,700italic,900,900italic","Roboto:300,regular,500"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -17,9 +34,11 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
+
     $(document).ready(function(){
       var userVar = 1;
       var submitted = 0;
+
       var cloneAndAddFunctionality = function(inputBox) {
         $("#source-first").hide();
         $("#source-another").hide();
@@ -76,17 +95,29 @@
         var input_names = document.getElementsByClassName('w-input');
         var dataString = "";
 
+        //console.log first-name;
+
         $.each(input_names, function(index, obj) {
           console.log(obj.name + ": " + obj.value);
           dataString = dataString + obj.name + ":" + obj.value + ";";
         })
-
         $.ajax({
           type:"post",
-          url:"php/debt-sources-backend.php",
+          url:"php/debt-sources-backend.php?user_id=" + document.getElementById('uid').value,
           data:dataString,
           cache:false,
           success: function(html){
+            if (html != ""){
+              $('#msg').html(html);
+              console.log(html);
+            }
+            else if (html == ""){
+              //$('#msg').html(html);
+              //console.log(html);
+              window.location = "dashboard.php?user_id=" + document.getElementById('uid').value;
+            }
+          },
+          error: function(html){
             $('#msg').html(html);
           }
         });
@@ -132,18 +163,29 @@
       $("#dropdown-legal-obligation").click(function(){ cloneAndAddFunctionality("#debt-legal-obligation-input-box") });
     });
   </script>
-
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
+  <?php
+    $user_id = $_REQUEST['user_id'];
+  ?>
   <div data-collapse="medium" data-animation="default" data-duration="400" class="navigation-bar dark w-nav">
     <div class="w-container">
-      <a href="index.html" class="brand-link white w-nav-brand">
+      <a href="index.php" class="brand-link white w-nav-brand">
         <h1 class="brand-text">Yada Yada Debt</h1>
         <div class="icon gold nav-icons">  </div>
       </a>
-      <nav role="navigation" class="navigation-menu w-nav-menu"><a href="index.html" class="navigation-link white w-nav-link">Home</a><a href="#" class="navigation-link white w-nav-link">About</a><a href="#" class="navigation-link white w-nav-link">Contact</a></nav>
+      <nav role="navigation" class="navigation-menu w-nav-menu">
+        <a href="index.php" class="navigation-link white w-nav-link">Home</a>
+        <a href="#" class="navigation-link white w-nav-link">About</a>
+        <a href="#" class="navigation-link white w-nav-link">Contact</a>
+        <!-- Ravi's changes to include signon BEGIN-->
+        <a href="/yadayada/login.php" class="navigation-link w-nav-link" id ="linkSignIn">Sign In</a>   <!-- TBD -->
+        <a href="#" class="navigation-link w-nav-link" id ="linkSignOut">Sign Out</a>
+        <input type="hidden" name="uid" id="uid">
+        <!-- Ravi's changes to include signon END-->
+      </nav>
       <div class="hamburger-button white w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
@@ -474,7 +516,7 @@
               <input type="text" class="w-input" maxlength="256" name="Legal-Obligation-Nickname" data-name="Legal Obligation Nickname" placeholder="e.g. Child Support" id="Legal-Obligation-Nickname" required="">
               <div class="data-descriptor">
                 <div>So tell me, what is your...</div>
-              </div><label for="Legal-Obligation-Amount" class="form-label">Legal Obligation Amount</label>
+              </div><label for="Legal-Obligation-Amount" class="form-label">Monthly Payment</label>
               <input type="number" step="0.01" class="w-input" maxlength="256" name="Legal-Obligation-Amount" data-name="Legal Obligation Amount" placeholder="e.g. $30,000.00" id="Legal-Obligation-Amount" required="">
               <label for="Legal-Obligation-Remaining-Term" class="form-label">Remaining Term</label>
               <select id="Legal-Obligation-Remaining-Term" name="Legal-Obligation-Remaining-Term" data-name="Legal Obligation Remaining Term" class="w-input" required="">
@@ -534,7 +576,7 @@
       <div class="w-row">
         <div class="column-2 w-col w-col-6 w-col-small-6 w-col-tiny-6">
         <a href="#" id="saveButton" style="display: none" class="hollow-button strong">Save</a></div>
-        <div class="align-right w-col w-col-6 w-col-small-6 w-col-tiny-6"><a href="#" id="continueButton" style="display: none" class="button">Continue to Dashboard</a>
+        <div class="align-right w-col w-col-6 w-col-small-6 w-col-tiny-6"><a href="dashboard.php?user_id=<?php echo $user_id;?>" id="continueButton" style="display: none" class="button">Continue to Dashboard</a>
       </div>
     </div>
   </div>
@@ -554,5 +596,40 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="js/webflow.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+  <!-- Ravi's changes to include signon BEGIN-->
+  <script>
+    firebase.auth().onAuthStateChanged(user => {
+        // If user is logged in then show log out button, profile button BUT hide the log in button
+            if (user) {
+                document.getElementById("linkSignOut").style.display = 'inline-block';
+                document.getElementById("linkSignIn").style.display = 'none';
+                document.getElementById("uid").value=user.uid;
+            }
+            // If user is logged out then show log in button BUT hide the log out button and profile button
+            else {
+                document.getElementById("linkSignIn").style.display = 'inline-block';
+                document.getElementById("linkSignOut").style.display = 'none';
+            }
+    })
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            console.log('User is signed in ' + user.displayName);
+            $('#uid').text(user.uid);
+            $('#first-name').text(user.displayName);
+        }
+        else {
+            console.log('No user is signed in');
+            window.location = "login.php"
+        }
+        //var user1 = firebase.auth().currentUser;
+        //console.log (user1.uid);
+    })
+    document.getElementById("linkSignOut").addEventListener('click', function (event) {
+        firebase.auth().signOut();
+        console.log('User was signed out');
+    })
+
+  </script>
+<!-- Ravi's changes to include signon END-->
 </body>
 </html>

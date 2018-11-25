@@ -31,8 +31,39 @@
   <script type="text/javascript">WebFont.load({  google: {    families: ["Inconsolata:400,700","Merriweather:300,300italic,400,400italic,700,700italic,900,900italic","Roboto:300,regular,500"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+  <script>
+    $(document).ready(function(){
+      $("#get-started").click(function() {
+        console.log('uid: '+document.getElementById('uid').value);
+        $.ajax({
+          type:"post",
+          url:"php/getstarted-selection.php?user_id=" + document.getElementById('uid').value,
+          cache:false,
+          success: function(num_rows){
+            //console.log(href);
+            //$('#msg').html(href);
+            //window.location = href;
+            if (num_rows > 0) {
+                window.location = 'dashboard.php?user_id=' + document.getElementById('uid').value;
+              }
+            else {
+              window.location = 'debt-sources.php?user_id=' + document.getElementById('uid').value;
+            }
+          },
+          error: function(href){
+            $('#msg').html("Errror");
+          }
+        });
+
+        return false;
+
+      });
+    });
+  </script>
+
 </head>
 <body class="body">
   <div class="hero-with-nav">
@@ -45,6 +76,7 @@
           <!-- Ravi's changes to include signon BEGIN-->
           <a href="/yadayada/login.php" class="navigation-link w-nav-link" id ="linkSignIn">Sign In</a>   <!-- TBD -->
           <a href="#" class="navigation-link w-nav-link" id ="linkSignOut">Sign Out</a>
+          <input type="hidden" name="uid" id="uid"></input>
           <!-- Ravi's changes to include signon END-->
         </nav>
         <div class="hamburger-button w-nav-button">
@@ -55,7 +87,8 @@
         <div class="icon gold">  </div>
         <h1 class="hero-heading">Yada Yada Debt</h1>
         <div class="hero-subheading">Your <strong>Get Out of Debt</strong> Planning Guide</div>
-        <div><a href="dashboard.html" class="button hero-button">Get Started</a></div>
+        <!-- <div><a id="get-started" href="php/getstarted-selection.php" class="button hero-button">Get Started</a></div>-->
+        <div><a id="get-started" href="#" class="button hero-button">Get Started</a></div>
       </div>
     </div>
   </div>
@@ -116,6 +149,7 @@
             if (user) {
                 document.getElementById("linkSignOut").style.display = 'inline-block';
                 document.getElementById("linkSignIn").style.display = 'none';
+                document.getElementById("uid").value=user.uid;
             }
             // If user is logged out then show log in button BUT hide the log out button and profile button
             else {
@@ -125,7 +159,7 @@
     })
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            console.log('User is signed in');
+            console.log('User is signed in ' + user.displayName);
         }
         else {
             console.log('No user is signed in');

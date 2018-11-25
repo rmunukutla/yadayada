@@ -1,26 +1,11 @@
 <?php
 
-//Development
-$servername="127.0.0.1";
-$username="root";
-$password="root";
-$dbname="yadayada";
+error_reporting(~E_ALL & ~E_NOTICE);
 
-/*
-//Production
-$servername="";
-$username="root";
-$password="root";
-$dbname="yadayada";
-*/
+include '../dbconnection.php';
 
-// Establish connection to MySQL
-$con = mysqli_connect($servername,$username,$password,$dbname);
-
-//Check connection status
-if(!$con) {
-  die("connection failed". $con->connection_error);
-}
+//Set autocommit to false
+mysqli_autocommit($con,false);
 
 //initialize variables
 $input_str = "";
@@ -40,9 +25,16 @@ for ($i=0; $i < count($inputs); $i++) {
   $tokens = explode(":", $inputs[$i]);
   if(!empty($tokens[1])) {
     $fields[]=$tokens[0];
-    $values[]=$tokens[1];
+    $values[]=str_replace("_",".",$tokens[1]);
+  }
+  else if ($i == 0){
+    echo "All fields are mandatory. Please do not leave any field blank.";
+    throw new Exception('All fields are mandatory. Please do not leave any field blank.');
   }
 }
+
+//echo print_r($values);
+//Ensure ALL values are Complete
 
 //all the input field names are now in $fields and corresponding values are in $values
 //loop through all the input vairables and every time 'nick name' begins, capture all details of the loan and issue SQL
@@ -50,7 +42,7 @@ for ($i=0; $i < count($fields); $i++) {
 
   //Reset variables sent to database
   $sql_str = "";
-  $user_id = rand(1,1000);
+  $user_id = $_REQUEST['user_id'];
   $nickname = "";
   $remaining_balance = 0.0;
   $interest_rate = 0.0;
@@ -59,7 +51,16 @@ for ($i=0; $i < count($fields); $i++) {
   $credit_card_minimum_payment = 0.0;
 
   if (strpos($fields[$i], "Credit-Card-Nickname") !== false) {
+
     $loan_type = "credit card";
+
+    if (empty($values[$i]) or empty($values[$i+1]) or empty($values[$i+2]) or empty($values[$i+3])) {
+      //$response_array['status'] = 'error';
+      //$response_array['exception'] = 'All fields are mandatory. Please do not leave any field blank.';
+      echo "All fields are mandatory. Please do not leave any field blank.";
+      throw new Exception('All fields are mandatory. Please do not leave any field blank.');
+    }
+
     $nickname = $values[$i++];
     $remaining_balance = $values[$i++];
     $credit_card_minimum_payment = $values[$i++];
@@ -70,16 +71,32 @@ for ($i=0; $i < count($fields); $i++) {
 
   elseif (strpos($fields[$i], "Student-Loan-Nickname") !== false) {
     $loan_type = "student loan";
+
+    if (empty($values[$i]) or empty($values[$i+1]) or empty($values[$i+2]) or empty($values[$i+3])) {
+      //$response_array['status'] = 'error';
+      //$response_array['exception'] = 'All fields are mandatory. Please do not leave any field blank.';
+      echo "All fields are mandatory. Please do not leave any field blank.";
+      throw new Exception('All fields are mandatory. Please do not leave any field blank.');
+    }
+
     $nickname = $values[$i++];
     $remaining_balance = $values[$i++];
     $interest_rate = $values[$i++];
     $remaining_term[0] = strtok($values[$i]," ");
 
-    insert_student_loan($user_id, $nickname,$remaining_balance,$interest_rate, $remaining_term);
+    insert_student_loan($user_id, $nickname, $remaining_balance, $interest_rate, $remaining_term);
   }
 
   elseif (strpos($fields[$i], "Payday-Loan-Nickname") !== false) {
     $loan_type = "payday loan";
+
+    if (empty($values[$i]) or empty($values[$i+1]) or empty($values[$i+2]) or empty($values[$i+3])) {
+      //$response_array['status'] = 'error';
+      //$response_array['exception'] = 'All fields are mandatory. Please do not leave any field blank.';
+      echo "All fields are mandatory. Please do not leave any field blank.";
+      throw new Exception('All fields are mandatory. Please do not leave any field blank.');
+    }
+
     $nickname = $values[$i++];
     $remaining_balance = $values[$i++];
     $interest_rate = $values[$i++];
@@ -90,6 +107,13 @@ for ($i=0; $i < count($fields); $i++) {
 
   elseif (strpos($fields[$i], "Loan-Nickname") !== false) {
     $loan_type = "loan";
+
+    if (empty($values[$i]) or empty($values[$i+1]) or empty($values[$i+2]) or empty($values[$i+3])) {
+      //$response_array['status'] = 'error';
+      //$response_array['exception'] = 'All fields are mandatory. Please do not leave any field blank.';
+      echo "All fields are mandatory. Please do not leave any field blank.";
+      throw new Exception('All fields are mandatory. Please do not leave any field blank.');
+    }
     $nickname = $values[$i++];
     $remaining_balance = $values[$i++];
     $interest_rate = $values[$i++];
@@ -100,6 +124,14 @@ for ($i=0; $i < count($fields); $i++) {
 
   elseif (strpos($fields[$i], "Legal-Obligation-Nickname") !== false) {
     $loan_type = "legal obligation";
+
+    if (empty($values[$i]) or empty($values[$i+1]) or empty($values[$i+2])) {
+      //$response_array['status'] = 'error';
+      //$response_array['exception'] = 'All fields are mandatory. Please do not leave any field blank.';
+      echo "All fields are mandatory. Please do not leave any field blank.";
+      throw new Exception('All fields are mandatory. Please do not leave any field blank.');
+    }
+
     $nickname = $values[$i++];
     $remaining_balance = $values[$i++];
     $remaining_term[0] = strtok($values[$i]," ");
@@ -108,6 +140,12 @@ for ($i=0; $i < count($fields); $i++) {
   }
 
 }
+
+function myException($exception) {
+  echo $exception->getMessage();
+}
+
+set_exception_handler('myException');
 
 //Credit card
 function insert_credit_card($user_id,
@@ -133,7 +171,7 @@ function insert_credit_card($user_id,
                                  minimum_payment,
                                  create_timestamp,
                                  update_timestamp)
-                         VALUES ($user_id,
+                         VALUES ('$user_id',
                                  '$credit_card_nickname',
                                  '$credit_card_nickname',
                                  'Credit Card',
@@ -202,7 +240,7 @@ function insert_credit_card($user_id,
            //echo "insert successful";
          }
          else {
-           //echo "insert failed: " . $con->error;
+           //echo "insert failed: " . $con->error . " sql: " . $sql_insert;
          }
 
        }
@@ -251,8 +289,7 @@ function insert_credit_card($user_id,
               //echo "insert successful";
             }
             else {
-              //echo "insert failed: " . $con->error;
-            }
+              echo "insert failed: " . $con->error . " sql: " . $sql_insert;            }
 
           }
 
@@ -351,8 +388,7 @@ function insert_credit_card($user_id,
 
                 }
 
+  mysqli_commit($con);
   $con->close();
-
-//echo "Complete";
 
 ?>
